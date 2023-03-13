@@ -7,16 +7,16 @@ const useCampaigns = () => {
   const [isLoading, setIsloading] = useState<boolean>(false);
 
   const actions = {
-    get: async () => client.get(""),
-    post: async (data: CampaignInterface) => client.post("", data),
+    get: async () => client.get("/campaign"),
+    post: async (data: CampaignInterface) => client.post("/campaign", data),
   };
 
   useEffect(() => {
     (async () => {
       setIsloading(true);
       try {
-        // const { data } = await actions.get();
-        // setCampaigns(data);
+        const { data } = await actions.get();
+        setCampaigns(data);
       } catch (e) {
       } finally {
         setIsloading(false);
