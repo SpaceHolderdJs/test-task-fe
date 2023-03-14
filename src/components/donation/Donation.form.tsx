@@ -1,9 +1,9 @@
 import React, { FC, useCallback, useState } from "react";
 import { FlexColumn } from "../ui/Flex";
 import { DonationInterface } from "./interfaces";
-import { CampaignInterface } from "../campaign/interfaces";
 import { IdType } from "../../interfaces";
 import useDonations from "./useDonation";
+import useCampaigns from "../campaign/useCampaigns";
 
 const initialFormData = {
   donatorName: "",
@@ -24,11 +24,18 @@ export const DonationForm: FC<Props> = ({ campaignId }) => {
   const { donatorName, amount } = formData;
 
   const { actions } = useDonations();
+  const { setCampaigns, actions: campaignActions } = useCampaigns();
 
   const onSubmit = useCallback(async () => {
     if (!donatorName || !amount) return alert("Fill all the data");
+    const regex = /[a-zA-Z_0-9]+/g;
+    if (regex.test(donatorName))
+      return alert("Donator`s name should include only letters, digits and _");
+
     const { data } = await actions.post(formData);
-    console.log(data, "data");
+    if (data) {
+      window.location.reload();
+    }
   }, [actions, amount, donatorName, formData]);
 
   return (
