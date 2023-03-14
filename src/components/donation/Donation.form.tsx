@@ -28,11 +28,13 @@ export const DonationForm: FC<Props> = ({ campaignId }) => {
 
   const onSubmit = useCallback(async () => {
     if (!donatorName || !amount) return alert("Fill all the data");
-    const regex = /[a-zA-Z_0-9]+/g;
-    if (regex.test(donatorName))
+    const regex = /^[a-zA-Z0-9_\s]+$/g;
+    if (!regex.test(donatorName)) {
       return alert("Donator`s name should include only letters, digits and _");
+    }
 
     const { data } = await actions.post(formData);
+    alert("successfully donated");
     if (data) {
       window.location.reload();
     }

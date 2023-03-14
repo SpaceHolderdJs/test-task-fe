@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import Modal from "react-modal";
 import { BiWindowClose } from "react-icons/bi";
 import { FlexColumn, FlexRow } from "../ui/Flex";
@@ -22,19 +22,26 @@ Modal.setAppElement("#root");
 
 interface Props {
   campaign: CampaignInterface;
+  className: string;
 }
 
-export const CampingView: FC<Props> = ({ campaign }) => {
+export const CampingView: FC<Props> = ({ campaign, className }) => {
   const { name, status, goalAmount, description, id } = campaign;
   const [isDonationModalOpen, setIsDonationModalOpen] =
     useState<boolean>(false);
 
   return (
-    <FlexRow w="90%" p="10px" m="10px" bg="lightgrey">
+    <FlexRow
+      w="90%"
+      p="10px"
+      m="10px"
+      bg="lightgrey"
+      className={className}
+    >
       <FlexColumn w="70%">
         <span>{id}</span>
         <h2>Name: {name}</h2>
-        <p>Descrition: {description}</p>
+        <p>Description: {description}</p>
         <p>Status: {status}</p>
         <p>Goal: {goalAmount}</p>
       </FlexColumn>
@@ -44,7 +51,8 @@ export const CampingView: FC<Props> = ({ campaign }) => {
       <Modal
         isOpen={isDonationModalOpen}
         style={customStyles}
-        onRequestClose={() => setIsDonationModalOpen(false)}>
+        onRequestClose={() => setIsDonationModalOpen(false)}
+      >
         <FlexRow w="100%" justifyContent="flex-end">
           <BiWindowClose
             cursor="pointer"
