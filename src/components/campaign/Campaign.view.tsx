@@ -4,6 +4,7 @@ import { BiWindowClose } from "react-icons/bi";
 import { FlexColumn, FlexRow } from "../ui/Flex";
 import { CampaignInterface } from "./interfaces";
 import { DonationForm } from "../donation/Donation.form";
+import { applyAnimations } from "../animations/reveal";
 
 const customStyles = {
   content: {
@@ -29,6 +30,10 @@ export const CampingView: FC<Props> = ({ campaign, className }) => {
   const { name, status, goalAmount, description, id } = campaign;
   const [isDonationModalOpen, setIsDonationModalOpen] =
     useState<boolean>(false);
+
+    useEffect(() => {
+      applyAnimations();
+    }, []);
 
   return (
     <FlexRow

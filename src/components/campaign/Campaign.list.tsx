@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { FlexColumn } from "../ui/Flex";
 import { CampingView } from "./Campaign.view";
 import useCampaigns from "./useCampaigns";
@@ -9,7 +9,7 @@ export const CampaignList = () => {
   const { campigns, setCampaigns, isLoading, actions } = useCampaigns();
   const container = useRef(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const gsapContext = gsap.context(() => {
       applyAnimations();
     }, container);
@@ -36,7 +36,7 @@ export const CampaignList = () => {
           />
         ))}
         {/*that trigger all animation aplying*/}
-        <div className="gs_reveal gs_reveal_fromLeft gs_duration-2" style={{height: '0px'}}></div>
+        {/* <div className="gs_reveal gs_reveal_fromLeft gs_duration-2" style={{height: '0px'}}></div> */}
       </FlexColumn>
     </FlexColumn>
   );
